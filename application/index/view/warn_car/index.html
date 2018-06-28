@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>车府令管控平台</title>
+    <link rel="stylesheet" href="__INDEX_CSS__/common.css">
+    <link rel="stylesheet" href="__INDEX_CSS__/VerticalMenu.css">
+    <link rel="stylesheet" href="__INDEX_CSS__/warn_car.css">
+</head>
+<body style="background:#001e36;background-size: cover;height: 1070px; width: 1920px;">
+{include file='index/header' num='7'}
+
+<div class="clear_fl reltive" style="margin-top: 10px;">
+    <div class="left">
+            <ul class="jcda_left_ul" style="margin-top: 5px;">
+            <li class="li_active"><span>车辆故障</span><span>{notempty name='err_num'}{$err_num}{else}暂无{/notempty}</span></li>
+            <li class="oil_warn" style="display: none"><span>油量报警</span><span>2</span></li>
+            <li class="danger_driver" style="display: none"><span>危险驾驶</span><span>2</span></li>
+            <li class="over_speed" style="display: none"><span>超速提示</span><span>3</span></li>
+            <li class="long_park" style="display: none"><span>长时停车</span><span>1</span></li>
+            <li class="license_expired"><span>驾照过期</span><span>{notempty name='license_num'}{$license_num}{else/}暂无{/notempty}</span></li>
+        </ul>
+    </div>
+    <div class="left">
+        <!-- 车辆故障 -->
+        <div class="right_show_table relative five_table" style="">
+            <div class="table table_header">
+                <div class="table_td">
+                    <p>车牌号</p>
+                </div>
+                <div class="table_td">
+                    <p>所属部门</p>
+                </div>
+                <div class="table_td">
+                    <p>使用者</p>
+                </div>
+                <div class="table_td">
+                    <p>时间</p>
+                </div>
+                <div class="table_td">
+                    <p>故障信息</p>
+                </div>
+
+            </div>
+            <div class="show_car_mes ">
+                {volist name='err_info' id='v'}
+                <div class="table table_show">
+                    <div class="table_td">
+                        <p>{$v.plate_num}</p>
+                    </div>
+                    <div class="table_td">
+                        <p>{$v.department_name}</p>
+                    </div>
+                    <div class="table_td">
+                        <p>{$v.name}</p>
+                    </div>
+                    <div class="table_td">
+                        <p>{$v.date}</p>
+                    </div>
+                    <div class="table_td" title="{$v.error_code}">
+                        <p>{$v.error_code}</p>
+                    </div>
+                </div>
+                {/volist}
+            </div>
+        </div>
+        <!-- 油量报警 -->
+        <div class="right_show_table relative five_table" style="display:none;">
+            <div class="table table_header">
+                <div class="table_td">
+                    <p>车牌号</p>
+                </div>
+                <div class="table_td">
+                    <p>所属部门</p>
+                </div>
+                <div class="table_td">
+                    <p>使用者</p>
+                </div>
+                <div class="table_td">
+                    <p>时间</p>
+                </div>
+                <div class="table_td">
+                    <p>油量</p>
+                </div>
+
+            </div>
+            <div class="show_car_mes ">
+                <div class="table table_show">
+                    <div class="table_td">
+                        <p>京E65Q68</p>
+                    </div>
+
+                    <div class="table_td">
+                        <p>物流一组</p>
+                    </div>
+                    <div class="table_td">
+                        <p>王强辉</p>
+                    </div>
+                    <div class="table_td">
+                        <p>2017-09-25</p>
+                    </div>
+                    <div class="table_td">
+                        <p>10L</p>
+                    </div>
+                </div>
+                <div class="table table_show">
+                    <div class="table_td">
+                        <p>京G569L4</p>
+                    </div>
+
+                    <div class="table_td">
+                        <p>物流二组</p>
+                    </div>
+                    <div class="table_td">
+                        <p>李平平</p>
+                    </div>
+                    <div class="table_td">
+                        <p>2017-09-24</p>
+                    </div>
+                    <div class="table_td">
+                        <p>7L</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 危险驾驶 -->
+        <div class="right_show_table relative five_table" style="display:none;">
+            <div class="table table_header">
+                <div class="table_td">
+                    <p>车牌号</p>
+                </div>
+                <div class="table_td">
+                    <p>所属部门</p>
+                </div>
+                <div class="table_td">
+                    <p>使用者</p>
+                </div>
+                <div class="table_td">
+                    <p>时间</p>
+                </div>
+                <div class="table_td">
+                    <p>危险驾驶行为</p>
+                </div>
+
+            </div>
+            <div class="show_car_mes ">
+                <div class="table table_show">
+                    <div class="table_td">
+                        <p>京A23620</p>
+                    </div>
+
+                    <div class="table_td">
+                        <p>研发部</p>
+                    </div>
+                    <div class="table_td">
+                        <p>刘最</p>
+                    </div>
+                    <div class="table_td">
+                        <p>2017-09-21</p>
+                    </div>
+                    <div class="table_td">
+                        <p>急刹</p>
+                    </div>
+                </div>
+                <div class="table table_show">
+                    <div class="table_td">
+                        <p>津A35698</p>
+                    </div>
+
+                    <div class="table_td">
+                        <p>物流一组</p>
+                    </div>
+                    <div class="table_td">
+                        <p>戴斌</p>
+                    </div>
+                    <div class="table_td">
+                        <p>2017-09-24</p>
+                    </div>
+                    <div class="table_td">
+                        <p>急减速</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 超速警示 -->
+        <div class="right_show_table relative five_table" style="display:none;">
+            <div class="table table_header">
+                <div class="table_td">
+                    <p>车牌号</p>
+                </div>
+                <div class="table_td">
+                    <p>所属部门</p>
+                </div>
+                <div class="table_td">
+                    <p>使用者</p>
+                </div>
+                <div class="table_td">
+                    <p>时间</p>
+                </div>
+                <div class="table_td">
+                    <p>最高速度</p>
+                </div>
+
+            </div>
+            <div class="show_car_mes ">
+                <div class="table table_show">
+                    <div class="table_td">
+                        <p>京E65Q68</p>
+                    </div>
+                    <div class="table_td">
+                        <p>物流一组</p>
+                    </div>
+                    <div class="table_td">
+                        <p>王强辉</p>
+                    </div>
+                    <div class="table_td">
+                        <p>2017-09-23</p>
+                    </div>
+                    <div class="table_td">
+                        <p>106 Km/h</p>
+                    </div>
+                </div>
+                <div class="table table_show">
+                    <div class="table_td">
+                        <p>冀B82798</p>
+                    </div>
+                    <div class="table_td">
+                        <p>物流二组</p>
+                    </div>
+                    <div class="table_td">
+                        <p>张浩</p>
+                    </div>
+                    <div class="table_td">
+                        <p>2017-09-24</p>
+                    </div>
+                    <div class="table_td">
+                        <p>104 Km/h</p>
+                    </div>
+                </div>
+                <div class="table table_show">
+                    <div class="table_td">
+                        <p>鲁B65247</p>
+                    </div>
+                    <div class="table_td">
+                        <p>物流一组</p>
+                    </div>
+                    <div class="table_td">
+                        <p>张耀军</p>
+                    </div>
+                    <div class="table_td">
+                        <p>2017-09-13</p>
+                    </div>
+                    <div class="table_td">
+                        <p>109 Km/h</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 长时停车 -->
+        <div class="right_show_table relative five_table" style="display:none;">
+            <div class="table table_header">
+                <div class="table_td">
+                    <p>车牌号</p>
+                </div>
+                <div class="table_td">
+                    <p>所属部门</p>
+                </div>
+                <div class="table_td">
+                    <p>使用者</p>
+                </div>
+                <div class="table_td">
+                    <p>时间</p>
+                </div>
+                <div class="table_td">
+                    <p>停车时长</p>
+                </div>
+
+            </div>
+            <div class="show_car_mes ">
+                <div class="table table_show">
+                    <div class="table_td">
+                        <p>京A23620</p>
+                    </div>
+                    <div class="table_td">
+                        <p>研发部</p>
+                    </div>
+                    <div class="table_td">
+                        <p>刘最</p>
+                    </div>
+                    <div class="table_td">
+                        <p>2017-09-21</p>
+                    </div>
+                    <div class="table_td">
+                        <p>2h</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 驾照过期提醒 -->
+        <div class="right_show_table relative eight_table" style="display:none;">
+            <div class="table table_header">
+                <div class="table_td">
+                    <p>工号</p>
+                </div>
+                <div class="table_td">
+                    <p>姓名</p>
+                </div>
+                <div class="table_td">
+                    <p>身份证号</p>
+                </div>
+                <div class="table_td">
+                    <p>入职日期</p>
+                </div>
+                <div class="table_td">
+                    <p>发证日期</p>
+                </div>
+                <div class="table_td">
+                    <p>有效日期</p>
+                </div>
+                <div class="table_td">
+                    <p>年检日期</p>
+                </div>
+                <div class="table_td">
+                    <p>过期提醒</p>
+                </div>
+            </div>
+            <div class="show_car_mes ">
+                {volist name='license_info' id ='v'}
+
+                <div class="table table_show">
+                    <div class="table_td">
+                        <p>{$v.job_num}</p>
+                    </div>
+                    <div class="table_td">
+                        <p>{$v.name}</p>
+                    </div>
+                    <div class="table_td">
+                        <p>{$v.card_id}</p>
+                    </div>
+                    <div class="table_td">
+                        <p>{$v.enty_data}</p>
+                    </div>
+                    <div class="table_td">
+                        <p>{$v.license_first}</p>
+                    </div>
+                    <div class="table_td">
+                        <p>{$v.license_end}</p>
+                    </div>
+                    <div class="table_td">
+                        <p>{$v.license_end}</p>
+                    </div>
+                    <div class="table_td">
+                        <p>
+                            {if $v.time gt 0}<span style="color: darkorange">还有{$v.time}天过期</span>
+                            {else}<span style="color:red">已过期</span>{/if}
+                        </p>
+                    </div>
+                </div>
+                {/volist}
+
+            </div>
+        </div>
+    </div>
+    <div class="left">
+
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="__INDEX_JS__/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="__INDEX_JS__/common.js"></script>
+<script type="text/javascript" src="__INDEX_JS__/warn_car.js"></script>
+
+
+</html>

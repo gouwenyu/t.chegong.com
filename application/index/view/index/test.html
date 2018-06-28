@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>车工</title>
+    <style>
+        td
+        {
+            text-align:center;
+        }
+
+    </style>
+</head>
+<body>
+    <TABLE id="msg">
+        <tr>
+            <td width="80">用户id</td>
+            <td width="80">存档时间</td>
+            <td width="80">起点经度</td>
+            <td width="80">起点纬度</td>
+            <td width="80">终点经度</td>
+            <td width="80">终点纬度</td>
+            <td width="80">起点位置</td>
+            <td width="80">终点位置</td>
+            <td width="80">行驶的起始时间</td>
+            <td width="80">行驶的结束时间</td>
+            <td width="80">当次行驶里程</td>
+        </tr>
+    </TABLE>
+</body>
+<script type="text/javascript" src="/static/push/js/jquery-1.11.0.min.js"></script>
+<script src="/static/push/js/socketio.js"></script>
+<script type='text/javascript'>
+    var socket = io('http://show.chegong.com:2120');
+    uid = 100;
+    socket.on('connect',function(){
+        socket.emit('login', uid);
+    });
+    socket.on("new_msg", function(msg) {
+        $('.clear').remove();
+        var _html = '';
+        var a = msg.replace(/&quot;/g, '"');
+        var data = JSON.parse(a);
+        $.each(data,function (val,index) {
+            _html = "<tr class='clear'>" +
+                "<td class='clear'>"
+                +index.user_id+ "</td><td class='clear'>" +
+                +index.ha+ "</td><td class='clear'>" +
+                +index.start_longitude+ "</td><td class='clear'>" +
+                +index.start_latitude+ "</td><td class='clear'>" +
+                +index.end_longitude+ "</td><td class='clear'>" +
+                +index.end_latitude+ "</td><td class='clear'>" +
+                +index.start_place+ "</td><td class='clear'>" +
+                +index.end_place+ "</td><td class='clear'>" +
+                +index.current_start_time+"</td><td class='clear'>" +
+                +index.current_end_time+"</td><td class='clear'>" +
+                +index.current_mileage+"</td></tr>";
+            $('#msg').append(_html);
+        });
+    });
+
+</script>
+</html>

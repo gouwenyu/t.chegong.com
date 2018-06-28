@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>车府令管控平台</title>
+    <link rel="stylesheet" href="/static/push/css/common.css">
+    <link rel="stylesheet" href="/static/push/css/VerticalMenu.css">
+    <link rel="stylesheet" href="/static/push/css/use_car.css">
+</head>
+<body style="background:#001e36;background-size: cover;height: 1060px; width: 1920px;">
+{include file='index/header' num='3'}
+<!--<div class="relative" style="margin:10px 0;height: 44px;padding-left: 300px;">-->
+    <!--<div class="common_header">-->
+        <!--<ul class="clear_fl common_header_ul left">-->
+            <!--<li><a href="{:url('index/index')}"><span class="index_common_span"></span>首页</a></li>-->
+            <!--<li><a href="{:url('edit/index')}"><span class="index_common_span"></span>基础档案</a></li>-->
+            <!--<li class="li_left_active"><a href="{:url('use_car/index')}"><span class="index_common_span"></span>用车管理</a></li>-->
+            <!--<li><a href="{:url('warn_car/index')}"><span class="index_common_span"></span>警示管理</a></li>-->
+            <!--<li><a href="{:url('car_manage/index')}"><span class="index_common_span"></span>费用管理</a></li>-->
+            <!--<li><a href="{:url('driver_info/kpi')}"><span class="index_common_span"></span>KPI考核</a></li>-->
+            <!--<li><a href="{:url('driver_info/analysis')}"><span class="index_common_span"></span>驾驶分析</a></li>-->
+            <!--<li><a href="{:url('driver_info/oil')}"><span class="index_common_span"></span>油耗统计</a></li>-->
+        <!--</ul>-->
+    <!--</div>-->
+<!--</div>-->
+<div class="clear_fl reltive" style="margin-top: 10px;">
+    <div class="left">
+        <!--<div class="clear_fl common_logo">-->
+            <!--<div class="left left_logo" {notempty name="Think.session.logo"}style="background:url(__PUSH_UPLOAD__/{$Think.session.logo}) no-repeat;"{/notempty}></div>-->
+            <!--<div class="left right_logo" ><a href="{:url('login/loginOut')}">{$Think.session.name}</a></div>-->
+        <!--</div>-->
+        <ul class="jcda_left_ul" style="margin-top: 5px;">
+            <li class="li_active  show_all_car"><span>全部</span></li>
+            <li class="have_select"><span>已选车辆</span></li>
+            <li class="no_select"><span>未选车辆</span></li>
+            <div class="VerticalMenu">
+                {volist name='carList' id='val'}
+               <div>
+                    <div><span>{$val.0.department_name}<span class="key_none">{$val.0.department_id}</span></span><i class="fa fa-angle-right fa-lg" leng="s" style="transform: rotate(90deg); color: rgb(249, 87, 158);"></i></div>
+                    <div name="xz" style="display: none;">
+                        {volist name='val' id='v'}
+                        <div><p><span class="obd_key_none">{$v.obd_id}</span><span >{$v.car_name}—</span><span class="car_num">{$v.plate_num}</span></p></div>
+                        {/volist}
+                    </div>
+                </div>
+                {/volist}
+            </div>
+        </ul>
+    </div>
+    <div class="left  right_show">
+        <div class="absolute">
+            <!-- 用车信息 -->
+            <div class="right_show_table relative five_table" style="display:;">
+                <div class="table table_header">
+
+                    <div class="table_td">
+                        <p>车牌号</p>
+                    </div>
+                    <div class="table_td">
+                        <p>所属部门</p>
+                    </div>
+                    <div class="table_td">
+                        <p>领取钥匙时间</p>
+                    </div>
+                    <div class="table_td">
+                        <p>归还钥匙时间</p>
+                    </div>
+                    <div class="table_td">
+                        <p>使用者</p>
+                    </div>
+                </div>
+                <div class="insert_sibling">
+                {volist name='list' id='v'}
+                <div class="show_car_mes ">
+                    <div class="table table_show">
+
+                         <div class="table_td">
+                            <p class="car" car_id="{$v.id}">{$v.plate_num}</p>
+                        </div>
+                        <div class="table_td">
+                            <p>{$v.department_name}</p>
+                        </div>
+                        <div class="table_td">
+                            <p class="start_time_p"><input placeholder="{empty name='v.use_car_state'}请选择领取时间{else}{$v.create_time}{/empty}" class="laydate-icon" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" ></p>
+                        </div>
+                        <div class="table_td">
+                            <p class="end_time_p"> <input placeholder="请选择归还时间" class="laydate-icon" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"></p>
+                        </div>
+                        <div class="table_td relative">
+                            {if $v.use_car_state eq 1}
+                            <p  class="show_user_p absolute"><span class="miid" data_id="{$v.miid}">{$v.name}</span><button class="no_btn">解绑</button></p>
+                            <div  class="ok_user_div absolute"  style="display: none;">
+                                <button class="ok_btn ">绑定</button>
+                                {else}
+                                <p  class="show_user_p absolute" style="display: none;"> <span class="miid" data_id="{$v.miid}"></span><button class="no_btn">解绑</button></p>
+                                <div  class="ok_user_div absolute" >
+                                    <button class="ok_btn ">绑定</button>
+                                    {/if}
+                                    <div class="all_user">
+                                        <div class="clear_fl " style="">
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                {/volist}
+                </div>
+            <div class="dt_insert" style="display: none;" ></div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<script type="text/javascript" src="/static/push/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/static/push/js/common.js"></script>
+<script type="text/javascript" src="/static/push/js/laydate.js"></script>
+<script type="text/javascript" src="/static/push/js/use_car.js"></script>
+</html>

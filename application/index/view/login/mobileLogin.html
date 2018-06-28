@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>车工云管控 — 登录</title>
+    <style type="text/css">
+        *{
+            margin:0;
+            padding:0;
+        }
+        .login>div:not(:last-child){
+            margin-left: 142px;
+        }
+        .login div input{
+            height: 100px;
+            width: 460px;
+            line-height: 54px;
+            margin-top: 16px;
+            outline: none;
+            border:none;
+            background: rgba(0, 31, 62,0.5);
+            font-size: 36px;
+            color: #56b0ea;
+        }
+        a:link,a:visited,a:hover,a:active{
+            color: white;
+            list-style-type: none;
+            text-decoration: none;
+        }
+        .ok_up{
+            border:none;
+            width: 480px;
+            height: 116px;
+            font-size: 36px;
+            padding:10px;
+            /*font-weight: bold;*/
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            background: #00c1de;
+
+        }
+        .clear_fl:after{
+            display: block;
+            content: '';
+            clear: both;
+        }
+        .ok_up:hover{
+            /*background: rgba(126,184,233,0.8);*/
+        }
+
+    </style>
+</head>
+<body onload="pageload()">
+<div style="position: absolute;">
+    <img src="__INDEX_IMG__/login/mobile.jpg" alt="">
+</div>
+<div style="position: absolute;margin-top: 240px;width: 100%;">
+    <div style="width: 1920px;margin:0 auto;" class="login clear_fl">
+        <div style="height: 120px;width: 550px;float:left">
+            <input id="get_phone" type="text" placeholder="请输入手机号码" style="margin-left: 50px;">
+        </div>
+        <div style="height: 120px;width: 550px;float:left">
+            <input id="pwd" type="password" placeholder="请输入密码">
+        </div>
+        <!--<div style="position: absolute;margin-top: 134px;height: 120px;font-size: 46px;right:-404px">-->
+            <!--<p style="position: absolute;color: white;"><input type="checkbox" id="save_pwd" style="height: 50px;width:50px;margin-left: 2px;margin-top: 12px;" checked><span style="display: inline-block;position: absolute;width: 200px;margin-top: 2px;margin-left: 6px;;">记住密码</span></p>-->
+
+        <!--</div>-->
+        <div style="height: 120px;float:left;margin-top: 10px">
+            <button class="ok_up">登&nbsp;&nbsp;&nbsp;&nbsp;录</button>
+        </div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="__INDEX_JS__/jquery.min.js"></script>
+<script type="text/javascript">
+    function pageload(){
+        var get_local_name = localStorage.getItem("local_name");
+        var get_local_pwd = localStorage.getItem('local_pwd');
+//        console.log(get_local_name)
+
+        //判断，如果输入的值等于存储的值
+        if(get_local_name){
+            $('#get_phone').val(get_local_name);
+        }
+        if(get_local_pwd){
+            $('#pwd').val(get_local_pwd);
+        }
+    }
+
+    $('.ok_up').click(function(){
+        login_up();
+    });
+    $("body").keydown(function() {
+        if (event.keyCode == "13") {
+            login_up();
+        }
+    });
+    function  login_up(){
+//        alert('1')
+        var get_name = $('#get_phone').val();
+        var get_pwd = $('#pwd').val();
+//        localStorage.setItem("local_name",get_name);
+//        if($('#save_pwd').prop("checked")){
+//          localStorage.setItem("local_pwd",get_pwd);
+//            console.log(get_pwd)
+//        }else{
+//            localStorage.removeItem("local_pwd");
+//        }
+//        alert('2')
+
+        var mobile = $('#get_phone');
+//        var mobile_reg = /^1[3578]{1}[0-9]{9}$/;
+//        if(!mobile_reg.test(mobile.val())){
+//            alert("请输入正确的电话号码");
+//            return false;
+//        }
+        var data = {};
+        if($('#pwd').val() == ""){
+            alert("请输入密码");
+            return false;
+        }
+        if($('#pwd').val().length<6){
+            alert("密码不能少于六位");
+            return false;
+        }
+        var url = "login";
+
+        data.mobile = mobile.val();
+        data.password = $('#pwd').val();
+
+
+
+        $.post(url,data,function(d){
+//            console.log(d);
+//            alert(d.error)
+
+
+            if(d.error == 0){
+                window.location.href = d.url;
+            }else{
+                alert(d.msg);
+            }
+
+        },"json");
+    }
+
+</script>
+</html>

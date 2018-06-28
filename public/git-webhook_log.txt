@@ -1,0 +1,15 @@
+-------------------------------------
+Point 在2018-01-23 17:20:17向管控平台项目的refs/heads/master分支push了2个commit：
+pull start --------
+
+pull end --------
+-------------------------------------
+Point 在2018-01-31 14:09:46向管控平台项目的refs/heads/master分支push了1个commit：
+pull start --------
+
+pull end --------
+-------------------------------------
+Point 在2018-03-02 10:48:38向管控平台项目的refs/heads/master分支push了1个commit：
+pull start --------
+
+pull end --------

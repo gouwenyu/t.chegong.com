@@ -1,0 +1,7 @@
+SELECT * FROM `kartor_cstdp_0007` WHERE `openCarId` ="E100822100807" AND `obdTime` BETWEEN "1530115200000" AND "1530201599000" ORDER BY `obdTime`
+
+
+SELECT `jt`.`id`,`jt`.`openCarId`,`jt`.`openId`,`jt`.`obdTime`,`jt`.`longitude`,`jt`.`latitude`,`jt`.`create_date`,`jt`.`modify_date`,`c`.`merchant_id`,`c`.`obd_mac`,`c`.`obd_id`,`jt`.`dataValid`,`jt`.`gpsMode`,`jt`.`accStatus`,`jt`.`gpsSpeed` FROM `t_car_info` `c` INNER JOIN `chegongbao`.`kartor_cstdp_0007` `jt` ON `c`.`obd_mac`=`jt`.`openCarId` WHERE `obd_id` IN ('f4d197b82fff6ad98f61087ecce496ec','68acd2f3f8ba2ec6c6698a39ae2d2f43','f501a67cd019abf92eb493ff29e7e38a','d7ca7a7331fe7d6f3d87f123668f08e9','a293970d077847864c94c4484df1126e') AND `obdTime` BETWEEN 1530115200000 AND 1530201599000 AND `dataValid` = 1 AND `gpsMode` = 1 AND `latitude` <> '0' AND `accStatus` = 1 ORDER BY `obdTime`
+
+
+SELECT * FROM `kartor_cstdp_0007`  WHERE `openCarId` = "E100822100807" AND `obdTime` BETWEEN 1530115200000 AND 1530201599000 AND `dataValid` = 1 AND `gpsMode` = 1 AND `latitude` <> '0' AND `accStatus` = 1 ORDER BY `obdTime`;

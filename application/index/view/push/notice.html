@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>推送测试</title>
+</head>
+<body>
+<script type="text/javascript">
+    ws = new WebSocket('ws://192.168.1.17:9502');
+    ws.onopen = function () {
+        ws.send('hello');
+        alert('链接成功');
+    }
+    //监听服务器有没有关闭服务
+    ws.onmessage = function () {
+        alert('有人发消息');
+    }
+    ws.onclose = function () {
+        alert('服务器已关闭');
+    }
+    console.log(ws);
+</script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+
+<style>
+    .common_header_ul li:nth-child([num]) a{
+        /*background: url(../image/index/left1.png)!important;*/
+        color: #ff4c15;!important;
+
+
+    }
+    .common_log{
+        height: 0px ;
+        overflow-y: hidden;
+        z-index: 222;
+        margin-top: 70%;
+    }
+    .common_log p:first-child{
+        margin-top: 15px;
+    }
+    .common_log p{
+        width: 100%;    
+        color: white;
+        text-align: center;
+        cursor: pointer;
+
+    }
+    .now_time{
+        width:100%;
+        color: #fff;
+        text-align: center;
+    }
+/*  .borderr{
+            border:1px solid red;
+            border:none;
+        }*/
+
+</style>
+<div class="common_edit_mess">
+    <!--修改图片-->
+    <div class="xgtp" style="display:none;padding:10px;">
+        <p style=""><span style="display: inline-block;">修改图片</span> <i class="iconfont icon_close">&#xe624;</i></p>
+        <div style="text-align: center;margin:20px 0;color: white;" >请选择小于2M的图片</div>
+        <div style="margin:0 auto;width: 200px;">
+            <div id="preview"></div>
+            <input type="file" onchange="preview(this)" accept="image/*" placeholder="选择图片"/> <br>
+            <div style="display: none"><progress id="progre" max="100" value=""></progress> <span id="span">0%</span></div>
+            <div></div>
+        </div>
+        <p><button class="login_ok">确认</button> <button class="login_no">取消</button></p>
+            </div>
+    <!--修改密码-->
+    <div class="xgmm" style="display: none">
+        <p style="padding-top: 30px;"><span>修改密码</span> <i class="iconfont icon_close">&#xe624;</i></p>
+        <p><input type="password" placeholder="输入旧密码" id="pwd_o"></p>
+        <p><input type="password" placeholder="输入新密码" id="pwd1"></p>
+        <p><input type="password" placeholder="确认新密码" id="pwd2"></p>
+        <p><button class="login_ok">确认</button> <button class="login_no">取消</button></p>
+    </div>
+    <!--修改信息-->
+    <div class="xgxx" style="display: none">
+        <p style="padding-top: 30px;"><span>修改信息</span> <i class="iconfont icon_close">&#xe624;</i></p>
+        <p><input type="text" placeholder="输入新名称"></p>
+        <p><button class="login_ok">确认</button> <button class="login_no">取消</button></p>
+    </div>
+</div>
+<div class="clear_fl common_body" >
+    <div class="left " style="width: 15%;min-width: 160px;">
+        <div class="clear_fl common_logo">
+            <div class="left left_logo " >
+                <img src="http://show.chegong.com/static/index/upload/20171123/0cc76a3f16aa6c4fdffa0066281350c3.png" alt="" style="width: 100%">
+            </div>
+            
+            <div class="left  right_logo " style="">               
+                <div class="clear_fl">
+                    <div class="left right_name ">
+                        <span class="c_names" style=" display: inline-block;">{$Think.cookie.name}</span>
+                    </div>
+                    <div class="left right_edit">
+                        <div class="relative">
+                            <div class="absolute ">
+                                <i class="iconfont login_m" style="font-size: 20px;">&#xe61d;</i>
+                            </div>                           
+                            <div style="" class=" absolute common_log">
+                                <div class="relative">
+                                    <div class="absolute">
+                                        <img src="/static/index/image/common/xiala.png" style="width: 100%;overflow-y: hidden;" alt="">
+                                    </div>
+                                    <div class="absolute" style="width: 100%">
+                                        <p class="edit_m">修改信息</p>
+                                        <p class="edit_p">修改密码</p>
+                                        <p><a href="{:url('login/loginOut')}">退出</a></p>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="now_time">2017-12-28 17:17</div>
+
+    </div>
+    <div class="common_header left " style="">
+        <div class="relative " style="width: 82.5%; min-width:800px;margin:0 auto">
+            <div class="absolute">
+                 <img src="/static/index/image/index/4.png" style="width: 100%" alt="">
+            </div>
+           
+            <ul class="absolute clear_fl common_header_ul" style="">
+                <li style=""><a href="{:url('index/index')}"><span class="index_common_span"></span>首页</a></li>
+                <li ><a href="{:url('edit/index')}"><span class="index_common_span"></span>基础档案</a></li>
+                <li style=" "><a href="{:url('driver_info/oil')}"><span class="index_common_span"></span>油耗统计</a></li>
+                <li style=""><a href="{:url('driver_info/history')}"><span class="index_common_span"></span>历史轨迹</a></li>
+                <li style="display: none;"><a href="{:url('driver_info/kpi')}"><span class="index_common_span"></span>KPI考核</a></li>
+                <li style="display: none"><a href="{:url('use_car/index')}"><span class="index_common_span"></span>用车管理</a></li>
+                <!--<li><a href="{:url('warn_car/index')}"><span class="index_common_span"></span>警示管理</a></li>-->
+                <li style="display: none"><a href="{:url('car_manage/index')}"><span class="index_common_span"></span>费用管理</a></li>
+                <!-- <li style=""><a href="{:url('driver_info/analysis')}"><span class="index_common_span"></span>驾驶分析</a></li> -->
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="global_disabled absolute" style="width: 100%;height: 800px;z-index: 999;background:rgba(255,255,255,0);display: none;cursor: wait">
+
+</div>

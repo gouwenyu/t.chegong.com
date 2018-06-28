@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>车府令管控平台</title>
+    <link rel="stylesheet" href="__INDEX_CSS__/common.css">
+    <link rel="stylesheet" href="__INDEX_CSS__/VerticalMenu.css">
+    <link rel="stylesheet" href="__INDEX_CSS__/car_manage.css">
+    <link href="http://www.jq22.com/jquery/font-awesome.4.6.0.css" rel="stylesheet" media="screen">
+
+</head>
+<body style="background:#001e36;">
+{include file='index/header' num='7'}
+<!-- <div class="relative " style="margin-top: 10px;"> -->
+<div class="clear_fl common_body">
+    <div class="left"  style="width: 15%;min-width: 160px;">
+        <div class="ver_list" style="margin-top: 7px;">
+            <div class="all_title com_bg">全部</div>
+            <div class="VerticalMenu">
+                {volist name='list' id='item'}
+                <div>
+                    {if count($list)>1}
+                    <div class="company">
+                        <span>{$user_name[$key]}</span>
+                    </div>
+                    {/if}
+                    {volist name='item' id='val'}
+
+                    <div name="xz" {if count($list)<2} style='display:block'{/if}>
+
+                    <div>
+                        <div class="depart" {if count($list)<2} style='height:50px;line-height:50px;'{/if}>
+                        <span>{$val.0.department_name}</span><span class="key_none" style="display: none;width: 1px;overflow: hidden">{$val.0.department_id}</span>
+                        <i class="fa fa-angle-right fa-lg"></i>
+                    </div>
+                    <div name="xz1" class="depart_one">
+                        {volist name='val' id='v'}
+                        <div><p><span class="obd_key_none">{$v.obd_id}</span><span class="car_num">{$v.plate_num}</span><span>—{$v.car_name}</span></p></div>
+                        {/volist}
+                    </div>
+                </div>
+            </div>
+            {/volist}
+        </div>
+
+        {/volist}
+    </div>
+
+</div>
+</div>
+<div class="relative right_show_table eight_table left" style="width: 84%; min-width: 840px;">
+    <div class="relative" style="width: 100%;">
+        <div class="absolute" style="width: 100%;height: 942px;">
+            <img src="/static/index/image/jcda/bg10.png" alt="" style="width: 100%;height: 942px;">
+        </div>
+        <div style="position: absolute;width: 98%;padding: 1.2% 1%" id="car_manage">
+            <div class="table table_header" style="width: 100%;">
+                <div class="table_td">
+                    <p>车牌号</p>
+                </div>
+                <!--<div class="table_td">-->
+                <!--<p>所属部门</p>-->
+                <!--</div>-->
+                <div class="table_td">
+                    <p>加油记录</p>
+                </div>
+                <div class="table_td">
+                    <p>违章记录</p>
+                </div>
+                <div class="table_td">
+                    <p>事故记录</p>
+                </div>
+                <div class="table_td">
+                    <p>保养记录</p>
+                </div>
+                <div class="table_td">
+                    <p>过桥记录</p>
+                </div>
+                <div class="table_td">
+                    <p>过路记录</p>
+                </div>
+            </div>
+            <div class="insert_sibling" style="width: 100%;">
+                {volist name='cost_list' key='k' id='v'}
+                <div class="show_car_mes ">
+                    <div class="table table_show" style="width: 100%;">
+                        <div class="table_td car_card">
+                            <p><span carId ="{$v.0.0.cid}" >{$v.plate_num}</span></p>
+                        </div>
+                        <div class="table_td" style="display: none">
+                            <p dep = "{$v.0.0.department_id}"></p>
+                        </div>
+                        <div class="table_td">
+                            <p class="jy_p  {notempty name='v.3.0.id'} jy_span {/notempty}"  {notempty name='v.3.0.id'} title="点击查看更多" style="cursor:pointer" {/notempty}>
+                            {notempty name='v.3.0.id'}
+                            <span class="span_div "><span driverId = "{$v.3.0.driver_id}">{$v.3.0.name}</span> {$v.3.0.add_time} {$v.3.0.accident_cost}￥</span>
+                            <!-- <span style="" class="jy_span">更多</span> -->
+                            {else}
+                            <span class="span_div">暂无</span>
+                            {/notempty}
+                            </p>
+                        </div>
+                        <div class="table_td">
+                            <p class="wz_p  {notempty name='v.3.0.id'}  wz_span {/notempty}" {notempty name='v.3.0.id'} title="点击查看更多" style="cursor:pointer" {/notempty}>
+                            {notempty name='v.0.0.id'}<span class="span_div"><span driverId = "{$v.0.0.driver_id}">{$v.0.0.name}</span> {$v.0.0.add_time} {$v.0.0.accident_cost}￥</span>
+                            <!-- <span style="" class="wz_span">更多</span> -->
+                            {else}
+                            <span class="span_div">暂无</span>
+                            {/notempty}
+                            </p>
+                        </div>
+                        <div class="table_td">
+                            <p class="sg_p  {notempty name='v.3.0.id'} sg_span {/notempty}" {notempty name='v.3.0.id'} title="点击查看更多" style="cursor: pointer" {/notempty}>
+                            {notempty name='v.1.0.id'}<span class="span_div"><span driverId = "{$v.1.0.driver_id}">{$v.1.0.name}</span> {$v.1.0.add_time} {$v.1.0.accident_cost}￥</span>
+                            <!-- <span style="" class="sg_span">更多</span> -->
+                            {else}
+                            <span class="span_div">暂无</span>
+                            {/notempty}
+                            </p>
+                        </div>
+                        <div class="table_td">
+                            <p class="by_p {notempty name='v.3.0.id'}  by_span {/notempty}" {notempty name='v.3.0.id'} title="点击查看更多" style="cursor: pointer" {/notempty}>
+                            {notempty name='v.2.0.id'}<span class="span_div"><span driverId = "{$v.2.0.driver_id}">{$v.2.0.name}</span> {$v.2.0.add_time} {$v.2.0.accident_cost}￥</span>
+                            <!-- <span style="" class="by_span">更多</span> -->
+                            {else}
+                            <span class="span_div">暂无</span>
+                            {/notempty}
+                            </p>
+                        </div>
+                        <div class="table_td">
+                            <p class="gl_p  {notempty name='v.3.0.id'} gl_span {/notempty}" {notempty name='v.3.0.id'} title="点击查看更多" style="cursor: pointer" {/notempty}>
+                            {notempty name='v.5.0.id'}<span class="span_div"><span driverId = "{$v.0.0.driver_id}">{$v.5.0.name}</span> {$v.5.0.add_time} {$v.5.0.accident_cost}￥</span>
+                            <!-- <span style="" class="gl_span">更多</span> -->
+                            {else}
+                            <span class="span_div">暂无</span>
+                            {/notempty}
+                            </p>
+                        </div>
+                        <div class="table_td">
+                            <p class="gq_p  {notempty name='v.3.0.id'} gq_span {/notempty}" {notempty name='v.3.0.id'} title="点击查看更多" style="cursor: pointer" {/notempty}>
+                            {notempty name='v.4.0.id'}<span class="span_div"><span driverId = "{$v.0.0.driver_id}">{$v.4.0.name}</span> {$v.4.0.add_time} {$v.4.0.accident_cost}￥</span>
+                            <!-- <span style="" class="gq_span">更多</span> -->
+                            {else}
+                            <span class="span_div">暂无</span>
+                            {/notempty}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {/volist}
+            </div>
+            <div class="dt_insert"  style="display: none;width: 100%;"></div>
+
+            <div class="add_car left_add_btn absolute" style="{if count($list)>1}display:none;{/if}">
+                <div class="relative" style="height: 100%">
+                    <div class="absolute" >
+                        <img src="/static/index/image/jcda/icon1.png" alt="" style="width: 100%">
+                    </div>
+                    <div class="absolute btn_txt" style="color: #fff;">添加车辆</div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="absolute common_tc if_add_car" style="display:none;" >
+        <div class=" relative  car_user_mes six_table" style="margin-top: 140px;margin-left: 20px;">
+            <div class="table table_header" style="width: 100%">
+                <div class="table_td">
+                    <p>车牌号</p>
+                </div>
+
+                <!--<div class="table_td" style="">-->
+                <!--<p>所属部门</p>-->
+                <!--</div>-->
+
+                <div class="table_td">
+                    <p>添加类型</p>
+                </div>
+                <div class="table_td">
+                    <p ><span class="manage_people">违章</span>人</p>
+                </div>
+
+
+                <div class="table_td">
+                    <p ><span class="manage_time">违章</span>时间</p>
+                </div>
+                <div class="table_td">
+                    <p ><span class="manage_money"></span>金额</p>
+                </div>
+                <div class="table_td">
+                    <p><span class="manage_show">违章</span>记录</p>
+                </div>
+
+            </div>
+            <div class="table add_show" style="width: 100%">
+                <div class="table_td">
+                    <p><select name="" id="car_num_show">
+                        {volist name='car_list' id='val'}
+                        <option value="{$val.id}">{$val.plate_num}</option>
+                        {/volist}
+                    </select></p>
+                </div>
+
+                <!--<div class="table_td">-->
+                <!--<p><select name="" id="depeart_type">-->
+                <!--<option value="0">研发部</option>-->
+                <!--<option value="1">运营部</option>-->
+                <!--<option value="2">保养部</option>-->
+                <!--</select></p>-->
+                <!--</div>-->
+
+                <div class="table_td">
+                    <p><select name="" id="manage_type">
+                        <option value="0">违章</option>
+                        <option value="1">事故</option>
+                        <option value="2">保养</option>
+                        <option value="3">加油</option>
+                        <option value="4">过路</option>
+                        <option value="5">过桥</option>
+                    </select></p>
+                </div>
+                <div class="table_td">
+                    <p><select name="" id="driver_show">
+                        {volist name='driver_list' id='val'}
+                        <option value="{$val.id}">{$val.name}</option>
+                        {/volist}
+                    </select></p>
+                </div>
+
+
+                <div class="table_td">
+                    <p id="manage_time"><input type="text" placeholder="请输入时间" class="laydate-icon" onclick="laydate({isdate: true, format: 'YYYY-MM-DD'})" ></p>
+                </div>
+                <div class="table_td">
+                    <p id="manage_money"><input type="text" placeholder="请输入金额"></p>
+                </div>
+                <div class="table_td">
+                    <p id="manage_des"><input type="text" placeholder="请输入"></p>
+                </div>
+            </div>
+        </div>
+        <div class="add_btn"><button id="add_car_ok">确认</button><button class="no_btn">取消</button><button id="add_user_reset">重置</button></div>
+    </div>
+    <!-- 加油记录 -->
+    <div id="jy_list" style="">
+        <div style="width: 800px;margin:0 auto;">
+            <div class="clear_fl"><div style="float: right;border:1px solid #ccc;padding: 5px;width: 20px;height: 20px;text-align: center;border-radius: 50%;font-size: 20px;line-height: 20px;cursor: pointer;color: white;" class="close_window">X</div></div>
+            <div style="text-align: center;padding: 20px 10px;font-weight: bold;font-size: 18px; color: white;"> 车牌号 <span style="font-weight: bolder;" class="car_num"> 豫K 12221 </span> 加油记录列表</div>
+            <div class="common_ol_title">
+                <span>费用</span><span>记录</span><span>时间</span><span>驾驶者</span>
+            </div>
+            <ol id="jy_ol">
+                <!--<li><span>2016-05-01</span><span>地盛南街 闯红灯</span><span>小明</span><span>罚款100</span></li>-->
+                <!--<li><span>超速 </span><span> 2017-08-06</span></li>-->
+                <!-- <li></li>
+                <li></li>
+                <li></li>
+                <li></li> -->
+            </ol>
+        </div>
+    </div>
+    <!-- 违章记录 -->
+    <div id="wz_list" style="">
+        <div style="width: 800px;margin:0 auto;">
+            <div class="clear_fl"><div style="float: right;border:1px solid #ccc;padding: 5px;width: 20px;height: 20px;text-align: center;border-radius: 50%;font-size: 20px;line-height: 20px;cursor: pointer;color: white;" class="close_window">X</div></div>
+            <div style="text-align: center;padding: 20px 10px;font-weight: bold;font-size: 18px; color: white;"> 车牌号 <span style="font-weight: bolder;" class="car_num"> 豫K 12221 </span> 的违章记录列表</div>
+            <div class="common_ol_title">
+                <span>费用</span><span>记录描述</span><span>时间</span><span>驾驶者</span>
+            </div>
+            <ol id="wz_ol">
+                <!--<li><span>2016-05-01</span><span>地盛南街 闯红灯</span><span>小明</span><span>罚款100</span></li>-->
+                <!--<li><span>超速 </span><span> 2017-08-06</span></li>-->
+                <!-- <li></li>
+                <li></li>
+                <li></li>
+                <li></li> -->
+            </ol>
+        </div>
+    </div>
+    <!-- 事故记录 -->
+    <div id="sg_list" style="">
+        <div style="width: 800px;margin:0 auto;">
+            <div class="clear_fl"><div style="float: right;border:1px solid #ccc;padding: 5px;width: 20px;height: 20px;text-align: center;border-radius: 50%;font-size: 20px;line-height: 20px;cursor: pointer;color: white;" class="close_window">X</div></div>
+            <div style="text-align: center;padding: 20px 10px;font-weight: bold;font-size: 18px; color: white;"> 车牌号 <span style="font-weight: bolder;" class="car_num"> 豫K1212121 </span> 的事故记录列表</div>
+            <div class="common_ol_title">
+                <span>费用</span><span>记录描述</span><span>时间</span><span>驾驶者</span>
+            </div>
+            <ol id="sg_ol">
+                <!--<li><span>闯红灯 </span><span> 2016-05-01</span></li>-->
+                <!--<li><span>超速 </span><span> 2017-08-06</span></li>-->
+                <!-- <li></li>
+                <li></li>
+                <li></li>
+                <li></li> -->
+            </ol>
+        </div>
+    </div>
+    <!-- 保养记录 -->
+    <div id="by_list" style="">
+
+        <div style="width: 800px;margin:0 auto;">
+            <div class="clear_fl"><div style="float: right;border:1px solid #ccc;padding: 5px;width: 20px;height: 20px;text-align: center;border-radius: 50%;font-size: 20px;line-height: 20px;cursor: pointer;color: white;" class="close_window">X</div></div>
+            <div style="text-align: center;padding: 20px 10px;font-weight: bold;font-size: 18px;color: white;">车牌号 <span class="car_num"> 豫K1212121</span> 的保养记录列表</div>
+            <div class="common_ol_title">
+                <span>费用</span><span>记录描述</span><span>时间</span><span>驾驶者</span>
+            </div>
+            <ol id="by_ol">
+                <!--<li><span>洗车</span><span>2017-05-06</span></li>-->
+                <!--<li><span>美容</span><span>2017-08-06</span></li>-->
+                <!-- <li></li>
+                <li></li>
+                <li></li>
+                <li></li> -->
+            </ol>
+        </div>
+
+    </div>
+    <!-- 过桥记录 -->
+    <div id="gq_list" style="">
+
+        <div style="width: 800px;margin:0 auto;">
+            <div class="clear_fl"><div style="float: right;border:1px solid #ccc;padding: 5px;width: 20px;height: 20px;text-align: center;border-radius: 50%;font-size: 20px;line-height: 20px;cursor: pointer;color: white;" class="close_window">X</div></div>
+            <div style="text-align: center;padding: 20px 10px;font-weight: bold;font-size: 18px;color: white;">车牌号 <span class="car_num"> 豫K1212121</span> 的过桥记录列表</div>
+            <div class="common_ol_title">
+                <span>费用</span><span>记录描述</span><span>时间</span><span>驾驶者</span>
+            </div>
+            <ol id="gq_ol">
+                无
+            </ol>
+        </div>
+
+    </div>
+    <!-- 过路记录 -->
+    <div id="gl_list" style="">
+        <div style="width: 800px;margin:0 auto;">
+            <div class="clear_fl"><div style="float: right;border:1px solid #ccc;padding: 5px;width: 20px;height: 20px;text-align: center;border-radius: 50%;font-size: 20px;line-height: 20px;cursor: pointer;color: white;" class="close_window">X</div></div>
+            <div style="text-align: center;padding: 20px 10px;font-weight: bold;font-size: 18px;color: white;">车牌号 <span class="car_num"> 豫K1212121</span> 的过路记录列表</div>
+            <div class="common_ol_title">
+                <span>费用</span><span>记录描述</span><span>时间</span><span>驾驶者</span>
+            </div>
+            <ol id="gl_ol">
+                无
+            </ol>
+        </div>
+
+    </div>
+</div>
+</div>
+<!-- </div> -->
+</body>
+<script type="text/javascript" src="__INDEX_JS__/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="__INDEX_JS__/common.js"></script>
+<script type="text/javascript" src="__INDEX_JS__/laydate.js"></script>
+<script type="text/javascript" src="__INDEX_JS__/car_manage.js"></script>
+
+<script type="text/javascript">
+
+</script>
+</html>

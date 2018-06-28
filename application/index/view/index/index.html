@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>车府令管控平台</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="__INDEX_CSS__/common.css?v=20180625">
+	<link rel="stylesheet" href="__INDEX_CSS__/VerticalMenu.css?v=20180625">
+	<link rel="stylesheet" href="__INDEX_CSS__/index.css?v=20180625">
+	<link rel="stylesheet" href="__INDEX_CSS__/gd_map.css?v=20180625">
+	<link rel="stylesheet" href="__INDEX_CSS__/lunbo.css?v=20180625">
+	<link href="http://www.jq22.com/jquery/font-awesome.4.6.0.css" rel="stylesheet" media="screen">
+	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=0b56e774df10081938cfcad128c7c837&plugin=AMap.CitySearch"></script>
+	<style>
+		.amap-maptype-label{
+			margin-left: 0;
+		}
+		.borderr{
+			border:1px solid red;
+			/*border:none;*/
+		}
+	</style>
+</head>
+<body style="background:#001e36;" class="" >
+{include file='index/header' num='1'}
+<span style="display: none;" id="uid">{$Think.session.uid}</span>
+<span style="display: none;" id="adress">{$Think.cookie.wz}</span>
+<div class="clear_fl relative common_body" >
+	<div class="left  cg_l" style="">
+		<div class="ver_list" >
+			<div class="all_title com_bg">全部</div>
+			<div class="VerticalMenu">
+				{volist name='list' id='item'}
+				<div>
+					{if count($list)>1}
+					<div class="company">
+						<span>{$user_name[$key]}</span>
+					</div>
+					{/if}
+					{volist name='item' id='val'}
+
+					<div name="xz" {if count($list)<2} style='display:block'{/if}>
+
+					<div>
+						<div class="depart" {if count($list)<2} style='height:50px;line-height:50px;'{/if}>
+						<span>{$val.0.department_name}</span>
+						<i class="fa fa-angle-right fa-lg"></i>
+					</div>
+					<div name="xz1" class="depart_one">
+						{volist name='val' id='v'}
+						<div><p><span class="obd_key_none">{$v.obd_id}</span><span>{$v.plate_num}—{$v.car_name}</span></p></div>
+						{/volist}
+					</div>
+				</div>
+			</div>
+			{/volist}
+		</div>
+		{/volist}
+	</div>
+</div>
+<div class="yhtj_right_bottom relative" style="">
+	<!-- <div class="absolute hxt_bg"></div> -->
+	<img src="/static/index/image/index/31.png" class="hxt_bg absolute" alt="" >
+	<div id="hxt" class="absolute"></div>
+</div>
+
+</div>
+<div class="left  cg_m  c_height" style="">
+	<div class="relative" style="height: 100%">
+		<div id="container" class="absolute" ></div>
+	</div>
+</div>
+<div class="left  cg_r relative c_height" >
+	<div class="absolute" style="width: 100%;height: 100%">
+		<img src="/static/index/image/index/5.png" alt="" style="width: 100%;height: 100%">
+	</div>
+	<div class="absolute" style="width: 100%">
+		<div style="display: none">
+			<div class="index_right_top relative">
+				<canvas id="annular_tj_canvas" class="absolute" width="102" style=""></canvas>
+				<!--<div style="" id="use_car_lv">{if $utilization.error eq 0}{$utilization.msg}%{else}{$utilization.msg}{/if}</div>-->
+				<div style="" id="use_car_lv"></div>
+			</div>
+			<div class="relative c_canvas" style="">车辆使用率</div>
+			<div class="index_right_top relative">
+				<canvas id="annular_tj_canvas1" class="absolute" width="102" style=""></canvas>
+				<!--<div style="" id='user_use_lv'>{if $attendance.error eq 0}{$attendance.msg}%{else}{$attendance.msg}{/if}</div>-->
+				<div style="" id='user_use_lv'></div>
+			</div>
+			<div class="relative c_canvas" style="">司机出勤率</div>
+			<div class="index_right_top relative">
+				<canvas id="annular_tj_canvas2" class="absolute" width="102" style=""></canvas>
+				<div style="" id='car_gz_lv'>{if $failure.error eq 0}{$failure.msg}%{else}{$failure.msg}{/if}</div>
+			</div>
+			<div class="relative c_canvas" style="">车辆故障率</div>
+		</div>
+		<ul class="index_bottom_ul" style="margin-top: 18px;text-align: center;">
+			<!--<li>-->
+			<!--<a href="{:url('warn_car/index')}#long_park">-->
+			<!--<p class="tj">1</p>-->
+			<!--<p>停车超时</p>-->
+			<!--</a>-->
+			<!--</li>-->
+			<!--<li>-->
+			<!--<a href="{:url('warn_car/index')}#over_speed">-->
+			<!--<p class="tj">3</p>-->
+			<!--<p>超速行驶</p>-->
+			<!--</a>-->
+			<!--</li>-->
+			<!--<li>-->
+			<!--<a href="{:url('warn_car/index')}#danger_driver">-->
+			<!--<p class="tj">2</p>-->
+			<!--<p>危险驾驶</p>-->
+			<!--</a>-->
+			<!--</li>-->
+			<li>
+				<!--<a href="{:url('warn_car/index')}#long_park">-->
+				<p class="park_num tj">0</p>
+				<p>停泊车辆</p>
+				<!--</a>-->
+			</li>
+			<li>
+				<!--<a href="{:url('warn_car/index')}#over_speed">-->
+				<p class="run_num tj">0</p>
+				<p>运动车辆</p>
+				<!--</a>-->
+			</li>
+			<li>
+				<!--<a href="{:url('warn_car/index')}">-->
+				<p class="gz_num tj">0</p>
+				<p>故障车辆</p>
+				<!--</a>-->
+			</li>
+			<!--<li id="testwin">-->
+			<!--<a href="{:url('warn_car/index')}#oil_warn">-->
+			<!--<p class="tj">2</p>-->
+			<!--<p>油量报警</p>-->
+			<!--</a>-->
+			<!--</li>-->
+			<li>
+				<!--<a href="{:url('warn_car/index')}#license_expired">-->
+				<!--<p class="tj">{if $license_num gt 0}{$license_num}{else}无{/if}</p>-->
+				<p class="tj">0</p>
+				<p>驾照过期</p>
+				<!--</a>-->
+			</li>
+		</ul>
+	</div>
+
+</div>
+</div>
+<!-- <div class="clear_fl relative " style="width:100%;min-width: 1024px;height: 160px;"> -->
+<div class="clear_fl relative common_body"  style="display: none">
+	<!--轮播图-->
+	<!--<div class="left" >-->
+	<!--<div class="" style="width: 380px;height: 154px;margin-top: 0px;overflow: hidden;">-->
+	<!--<div class=" lunbo relative">-->
+	<!--<ul class="lunbo-ul clear_fl">-->
+	<!--{if count($list)>1}-->
+	<!--{else}-->
+	<!--{volist name='list' id='item'}-->
+	<!--{volist name='item' id='val'}-->
+	<!--{volist name='val' key='k' id='v'}-->
+	<!--{if $k%3==1}<li><div class="lbt_title">{$v.department_name}</div><div class="clear_fl">{/if}-->
+	<!--<div class="left" >-->
+	<!--<div ><span style="color: white; margin-right: 10px;">{$v.plate_num}</span></div>-->
+	<!--<div >{$v.owner}</div>-->
+	<!--<div ><span id="{$v.obd_id}"style="color: #00D40E;">正常</span></div>-->
+	<!--</div>-->
+	<!--{if $k%3==0}</div></li>{/if}-->
+	<!--{/volist}-->
+	<!--{if count($val)%3!=0}</li>{/if}-->
+	<!--{/volist}-->
+	<!--{/volist}-->
+	<!--{/if}-->
+	<!--</ul>-->
+	<!--</div>-->
+	<!--</div>-->
+	<!--</div>-->
+	<div class="left" style="width: 80%;height: 160px; ">
+		<div style="width:100%;text-align: center;color: white;font-size: 18px;" ><span class="span2">平均油耗</span></div>
+		<div id="zzt"></div>
+	</div>
+	<div class="left relative" style="width: 20%;margin-top: 20px;">
+		<div class="absolute" style="right: 0px">
+			<div style="position: absolute;right: 10%;color: #fff;top: 2%">正常</div>
+			<img src="__INDEX_IMG__/5.png" alt="" width="100%" >
+		</div>
+	</div>
+</div>
+</body>
+<script>
+	//	接口路径
+	var underwayUrl = '{:url("Index/underway")}';
+	var utilizationUrl='{:url("Index/utilization")}';
+	var attendanceUrl='{:url("Index/attendance")}';
+	var failureUrl='{:url("Index/failure")}';
+	var gas_station = '{:url("Index/gas_station")}';
+
+	//图片路径
+	var imgUrl= '__INDEX_IMG__';
+</script>
+<script type="text/javascript" src="__INDEX_JS__/jquery.min.js"></script>
+<script type="text/javascript" src="__INDEX_JS__/common.js"></script>
+<script type="text/javascript" src="__INDEX_JS__/ichart.1.2.min.js"></script>
+<!--{$oil_list}-->
+<script type='text/javascript'>
+	function bg_color() {
+		var r = Math.floor(Math.random() * 170+60);
+		var g = Math.floor(Math.random() * 150+60);
+		var b = Math.floor(Math.random() * 170+60);
+		return 'rgb(' + r + ',' + g + ',' + b + ')';
+	}
+	var data = [{$oil_list}];
+</script>
+<script type="text/javascript" src="__INDEX_JS__/index.js"></script>
+<!--<script src="__INDEX_JS__/socketio.js"></script>-->
+<script type="text/javascript">
+
+
+	//	车辆故障编码
+	// (function(){
+	// 	$.ajax({
+	// 		url:'__INDEX__/gzdate.json',
+	// 		type:'get',
+	// 		timeout:0,
+	// 		dataType:'json',
+	// 		success:function(data){
+	// 			var gzmsg = eval(data);
+	// 			gz_date(gzmsg);
+	// 		}
+	// 	});
+	// })();
+
+	function gz_date(gz){
+		gz_get = gz;
+	}
+	function gz_getDate(){
+		return gz_get;
+
+	}
+	//	gz_getDate();
+</script>
+<script type="text/javascript" src="__INDEX_JS__/main_map.js"></script>
+<script type="text/javascript" src="__INDEX_JS__/lunbo.js"></script>
+<script>
+	$(function() {
+		$(".lunbo-ul").responsiveSlides({
+			auto: true,
+			pager: true,
+			nav: true,
+			speed: 500
+		});
+	});
+</script>
+</html>

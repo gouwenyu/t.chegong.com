@@ -1,0 +1,124 @@
+ <!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>按起终点经纬度规划路线</title>
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+    <style type="text/css">
+        #panel {
+            position: fixed;
+            background-color: white;
+            max-height: 90%;
+            overflow-y: auto;
+            top: 10px;
+            right: 10px;
+            width: 280px;
+            /*display: none;*/
+        }
+    </style>
+    <script src="http://webapi.amap.com/maps?v=1.3&key=0b56e774df10081938cfcad128c7c837&plugin=AMap.MouseTool"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+</head>
+<body>
+<div id="container"></div>
+<div id="panel"></div>
+<script type="text/javascript" src="http://show.chegong.com/static/push/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+    //基本地图加载
+    var map = new AMap.Map("container", {
+        resizeEnable: true,
+        center: [116.397428, 39.90923],//地图中心点
+        zoom: 13 //地图显示的缩放级别
+    });
+    var geocoder;
+    AMap.plugin('AMap.Geocoder',function(){
+        geocoder = new AMap.Geocoder({
+            city: "010"//城市，默认：“全国”
+        });        
+    });
+    var obj_arr= {}
+    var click_lnglat = [];
+    var address = [];
+    var total_lnglat = [];
+    // var total_lnglat1 = [];
+    // var all_show = [];
+    AMap.service('AMap.Driving',function(){//回调函数
+    //实例化Driving
+       driving= new AMap.Driving({
+            map: map,
+            panel: "panel"
+        });
+        //TODO: 使用driving对象调用驾车路径规划相关的功能
+    });
+    var clickEventListener = map.on('click', function(e) {
+        var as =[e.lnglat.getLng(),e.lnglat.getLat()];
+
+        geocoder.getAddress(as,function(status,result){
+            if(status=='complete'){
+                var adc = result.regeocode.formattedAddress ;
+                if(click_lnglat.length<2){
+                  address.push(adc)
+                  click_lnglat.push(as);
+                }
+                if(click_lnglat.length==2){
+                  // console.log(click_lnglat[0])
+                    driving.search(new AMap.LngLat(click_lnglat[0][0],click_lnglat[0][1]), new AMap.LngLat(click_lnglat[1][0],click_lnglat[1][1]),function(status, result) {
+                        console.log(result)
+                        // console.log(result.routes[0].distance) //获取总距离
+                        // console.log(result.routes[0].time) //获取总时间
+                        obj_arr.s_e_address= address;
+                        obj_arr.distance= result.routes[0].distance;
+                        obj_arr.time= result.routes[0].time;
+                        defined_for(function(a){
+                            var total_lnglat1 = [];
+                            // console.log(result.routes[0].steps.length)
+                              // console.log(result.routes[0].steps[a])
+                            defined_for(function(b){
+                                total_lnglat1[b] = [];
+                                
+                                var d_time = result.routes[0].steps[a].time/(result.routes[0].steps[a].path.length);  //点与点之间时间
+                                var d_distance = result.routes[0].steps[a].distance/(result.routes[0].steps[a].path.length);//点与点之间距离
+
+
+                                // get_show.innerHTML += `经纬度信息${a}：[${result.routes[0].steps[a].path[b]}]<br>`
+                                // total_lnglat.push(`[${result.routes[0].steps[a].path[b]}]`)
+                                total_lnglat1[b].push(result.routes[0].steps[a].path[b].lng);
+                                total_lnglat1[b].push(result.routes[0].steps[a].path[b].lat);
+                                total_lnglat1[b].push(d_time.toFixed(6));
+                                total_lnglat1[b].push(d_distance.toFixed(3));
+
+
+                            },0,result.routes[0].steps[a].path.length)
+                            
+                            total_lnglat.push(total_lnglat1)
+                        },0,result.routes[0].steps.length)
+
+                                console.log(total_lnglat)
+
+                        obj_arr.lnglat=total_lnglat;
+                        $.post('http://w.cg/index/ins',obj_arr,function(d){});
+                    })
+                }
+            }            
+        })
+
+        
+    });
+
+
+
+    function defined_for(callback,start_num,end_num){
+        var i = start_num || 0;
+        for(;i<end_num;i++){
+            callback(i);
+        }
+    }
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>车府令管控平台</title>
+    <link rel="stylesheet" href="/static/push/css/common.css">
+    <link rel="stylesheet" href="/static/push/css/VerticalMenu.css">
+    <link rel="stylesheet" type="text/css" href="/static/push/css/calendar.css">
+    <link rel="stylesheet" href="/static/push/css/yhtj.css">
+
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=0b56e774df10081938cfcad128c7c837"></script>
+</head>
+<body style="background:#001e36;background-size: cover;height: 1070px; width: 1920px;">
+<div style="display: none;" class="alert">
+    <div>
+        <div class="top"><p>默认时间（今天）内暂无行驶轨迹</p></div>
+        <div class="bottom clear_fl">
+            <button id="ok" style="left:320px">确定</button>
+        </div>
+    </div>
+</div>
+{include file='index/header' num='8'}
+
+
+
+    <div class="clear_fl relative">
+        <div class="left" style="width: 300px;margin-top: 15px;">
+
+            <div class="ver_list" style="">
+            <!-- <div class="ver_list"> -->
+                <div class="all_title">全部</div>
+                <div class="VerticalMenu">
+                    {volist name='list' id='val'}
+                    <div>
+                        <div><span><span>{$val.0.department_name}</span><span class="key_none">{$val.0.department_id}</span></span><i class="fa fa-angle-right fa-lg"></i></div>
+                        <div name="xz">
+                            {volist name='val' id='v'}
+                            <div><p><span class="obd_key_none">{$v.obd_id}</span><span>{$v.car_name}—{$v.plate_num}</span></p></div>
+                            {/volist}
+                        </div>
+                    </div>
+                    {/volist}
+                </div>
+
+            </div>
+        </div>
+        <div class="left">
+            <div class="clear_fl" style="height: 80px;width: 970px;margin-left: 20px;margin-top: -6px;">
+                <div class="ui-datepicker-quick  left" style="width:740px;margin-top: 15px;">
+                    <div>
+                        <input class="ui-date-quick-button" type="button" value="今天" alt="0"  name=""/>
+                        <input class="ui-date-quick-button" type="button" value="昨天" alt="-1" name=""/>
+                        <input class="ui-date-quick-button" type="button" value="一周" alt="-6" name=""/>
+                        <input class="ui-date-quick-button" type="button" value="半月" alt="-14" name=""/>
+                    </div>
+                </div>
+                <div class="left" style="position: relative;">
+                    <div class="zdy_date " style="margin-top: 20px;display: ;">
+                        自定义日期
+                    </div>
+                    <input type="text" class="ui-datepicker-time  " readonly value=""  style="display: none;margin-top: 21px;" />
+                        <div class="ui-datepicker-css  " style="position: absolute;">
+                            <div class="ui-datepicker-choose  relative">
+                                <p>自选日期<a class="ui-close-date">X</a></p>
+                                <div class="ui-datepicker-date">
+                                    <input name="startDate" id="startDate" class="startDate" readonly value="2014-12-20" type="text">
+                                    ——
+                                    <input name="endDate" id="endDate" class="endDate" readonly  value="2014-12-20" type="text" disabled onchange="datePickers()">
+
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+            <div class="relative yhtj_map" style="">
+                <div id="gj_map" style=""></div>
+                <!-- <div class="absolute left_bg"></div> -->
+                <!-- <div class="absolute right_bg"></div>               -->
+            </div>
+            <!--<div style="margin-left: 50px;margin-top: 23px;">-->
+                <div style="margin-left: 50px;">
+                <div style="height: 60px;line-height: 60px;" class="yhtj_title"><span class="span1"></span><span class="span2">平均油耗</span></div>
+                <div id="zzt"></div>
+            </div>
+        </div>
+        <div class="left">
+            <ul style="color:white;" class="right_all_tj">
+                <li class="tj_title">
+                    <div class="yhtj_right_top">
+                        <p class="title_km">里程</p>
+                    </div>
+                </li>
+                <li style="" class="tj_title_show">                    
+                    <div class="yhtj_right_bottom">
+                        <div id="hxt" class="absolute"></div>
+                        <div class="absolute hxt_bg"></div>
+                    </div>
+                    <div class="tj_all_km"><p><span  class="total_common_get"></span>总里程：<span id="all_km_total">暂无数据</span></p></div>
+                    <div id="all_km_show">
+                        <!--<p  style="width: 100%; text-align: center;margin-top: 10px;">暂无数据</p>-->
+                    </div>                   
+                </li>
+                <li class="tj_title">
+                    <div class="yhtj_right_top">
+                        <p class="title_km">油耗</p>
+                    </div>
+                </li>
+                <li style="display:none ;" class="tj_title_show">
+                    <div class="yhtj_right_bottom">
+                        <div id="hxt1" class="absolute"></div>
+                        <div class="absolute hxt_bg"></div>
+                    </div>
+                    <div class="tj_all_yh"><p><span  class="total_common_get"></span>总油耗：<span id="all_yh_total">暂无数据</span></p></div>
+                    <div id="all_yh_show">
+                        <p  style="width: 100%; text-align: center;margin-top: 10px;">暂无数据</p>
+                    </div>
+                </li>
+                <li class="tj_title">
+                    <div class="yhtj_right_top">
+                        <p class="title_km">油费</p>
+                    </div>
+                </li>
+                <li style="display:none ;" class="tj_title_show">
+                    <div class="yhtj_right_bottom">
+                        <div id="hxt2" class="absolute"></div>
+                        <div class="absolute hxt_bg"></div>
+                    </div>
+                    <div class="tj_all_yf"><p><span  class="total_common_get"></span>总油费：<span id="all_yf_total">暂无数据</span></p></div>
+                    <div id="all_yf_show">
+                        <p  style="width: 100%; text-align: center;margin-top: 10px;">暂无数据</p>
+                    </div>
+                </li>
+               
+
+            </ul>
+           
+        </div>
+    </div>   
+</body>
+{$oil_list}
+<script type="text/javascript" src="/static/push/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/push/js/common.js"></script>
+<script src="https://webapi.amap.com/ui/1.0/main.js"></script>
+<script src="/static/push/js/jquery-ui-1.9.2.custom.js" type = "text/javascript" language="javascript"></script>
+<script src="/static/push/js/calendar.js" type = "text/javascript"></script>
+<script type="text/javascript" src="/static/push/js/ichart.1.2.min.js"></script>
+<script type="text/javascript" src="/static/push/js/yhtj.js"></script>
+
+
+</html>

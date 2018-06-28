@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>车府令管控平台</title>
+    <link rel="stylesheet" href="__INDEX_CSS__/common.css">
+    <link rel="stylesheet" href="__INDEX_CSS__/VerticalMenu.css">
+    <link rel="stylesheet" href="__INDEX_CSS__/use_car.css">
+    <link href="http://www.jq22.com/jquery/font-awesome.4.6.0.css" rel="stylesheet" media="screen">
+
+</head>
+<body style="background:#001e36;">
+{include file='index/header' num='6'}
+<div class="clear_fl reltive common_body" style="">
+    <div class="left" style="width: 15%;min-width: 160px;">
+        <ul class="jcda_left_ul" style="margin-top: 5px;">
+            <li class="li_active  show_all_car"><span>全部</span></li>
+            <li class="have_select"><span>已选车辆</span></li>
+            <li class="no_select"><span>未选车辆</span></li>
+            <div class="VerticalMenu">
+                {volist name='carList' id='item'}
+                <div>
+                    {if count($carList)>1}
+                    <div class="company">
+                        <span>{$user_name[$key]}</span>
+                    </div>
+                    {/if}
+                    {volist name='item' id='val'}
+
+                        <div name="xz" {if count($carList)<2} style='display:block'{/if}>
+                            <div>
+                                <div class="depart" {if count($list)<2} style='height:50px;line-height:50px;'{/if}>
+                                    <span>{$val.0.department_name}</span><span class="key_none" style="display: none;width: 10px;overflow: hidden">{$val.0.department_id}</span><i class="fa fa-angle-right fa-lg"></i>
+                                </div>
+                                <div name="xz1" class="depart_one">
+                                    {volist name='val' id='v'}
+                                    <div><p><span class="obd_key_none">{$v.obd_id}</span><span class="car_num">{$v.plate_num}</span><span>—{$v.car_name}</span></p></div>
+                                    {/volist}
+                                </div>
+                            </div>
+                        </div>
+                    {/volist}
+                </div>
+            {/volist}
+            </div>
+        </ul>
+    </div>
+    <div class="left relative right_show" style="width: 84%; min-width: 840px;">
+        <div class="relative" style="width: 100%">
+            <div class="absolute" style="width: 100%;height: 942px;">
+                <img src="/static/index/image/jcda/bg10.png" alt="" style="width: 100%;height: 942px;">
+            </div>
+            <!-- 用车信息 -->
+            <div class="right_show_table relative five_table" style="display:;">
+                <div class="table table_header" style="width: 100%">
+
+                    <div class="table_td">
+                        <p>车牌号</p>
+                    </div>
+                    <div class="table_td">
+                        <p>所属部门</p>
+                    </div>
+                    <div class="table_td">
+                        <p>领取钥匙时间</p>
+                    </div>
+                    <div class="table_td">
+                        <p>归还钥匙时间</p>
+                    </div>
+                    <div class="table_td">
+                        <p>使用者</p>
+                    </div>
+                </div>
+                <div class="insert_sibling" style="width: 100%">
+                    {volist name='list' id='v'}
+                    <div class="show_car_mes ">
+                        <div class="table table_show">
+
+                            <div class="table_td">
+                                <p class="car" car_id="{$v.id}">{$v.plate_num}</p>
+                            </div>
+                            <div class="table_td" style="text-align: left;">
+                                <p de_id="{$v.department_id}" style="padding-left:20%;text-align: left;width: 100%;"><span >{$v.username}-{$v.department_name}</span></p>
+                            </div>
+                            <div class="table_td">
+                                <p class="start_time_p"><input placeholder="{empty name='v.use_car_state'}请选择领取时间{else}{$v.create_time}{/empty}" class="laydate-icon" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" ></p>
+                            </div>
+                            <div class="table_td">
+                                <p class="end_time_p"> <input placeholder="请选择归还时间" class="laydate-icon" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"></p>
+                            </div>
+                            <div class="table_td relative">
+                                {if $v.use_car_state eq 1}
+                                <p  class="show_user_p absolute"><span class="miid" data_id="{$v.miid}">{$v.name}</span><button class="no_btn">解绑</button></p>
+                                <div  class="ok_user_div absolute"  style="display: none;">
+                                    <button class="ok_btn ">绑定</button>
+                                    {else}
+                                    <p  class="show_user_p absolute" style="display: none;"> <span class="miid" data_id="{$v.miid}"></span><button class="no_btn">解绑</button></p>
+                                    <div  class="ok_user_div absolute" >
+                                        <button class="ok_btn ">绑定</button>
+                                        {/if}
+                                        <div class="all_user">
+                                            <div class="clear_fl " style="">
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/volist}
+                    </div>
+                    <div class="dt_insert" style="display: none;" ></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="__INDEX_JS__/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="__INDEX_JS__/common.js"></script>
+<script type="text/javascript" src="__INDEX_JS__/laydate.js"></script>
+<script type="text/javascript" src="__INDEX_JS__/use_car.js"></script>
+</html>

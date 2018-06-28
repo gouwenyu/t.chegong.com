@@ -1,0 +1,90 @@
+
+<style>
+    .common_header_ul li:nth-child([num]) a{
+        /*background: url(../image/index/left1.png)!important;*/
+        color: #ff4c15;!important;
+
+
+    }
+    .common_log{
+        background: url('__INDEX_IMG__/common/xiala.png');
+        width: 210px;
+        height: 0px;
+        position: absolute;
+        z-index: 222;
+        margin-top: 50px;
+        margin-left: 114px;
+        /*display: none;*/
+        overflow: hidden;
+    }
+</style>
+<div class="common_edit_mess">
+    <!--修改图片-->
+    <div class="xgtp" style="display:none;padding:10px;">
+        <p style=""><span style="display: inline-block;">修改图片</span> <i class="iconfont icon_close">&#xe624;</i></p>
+        <div style="text-align: center;margin:20px 0;color: white;" >请选择小于2M的图片</div>
+        <div style="margin:0 auto;width: 200px;">
+            <div id="preview"></div>
+            <input type="file" onchange="preview(this)" accept="image/*" placeholder="选择图片"/> <br>
+            <div style="display: none"><progress id="progre" max="100" value=""></progress> <span id="span">0%</span></div>
+            <div></div>
+        </div>
+        <p><button class="login_ok">确认</button> <button class="login_no">取消</button></p>
+
+        <!--<p style=""><span style="display: inline-block;">修改图片</span> <i class="iconfont icon_close">&#xe624;</i></p>-->
+        <!--<div style="text-align: center;margin:20px 0;color: white;" >请选择小于2M的图片</div>-->
+        <!--<div id="preview"></div>-->
+        <!--<form method="post" enctype="multipart/form-data" class="form"  id="img_form">-->
+            <!--&lt;!&ndash;<form method="post" enctype="multipart/form-data" class="form" action="{:url('update/upload')}" id="img_form">&ndash;&gt;-->
+            <!--<div style="width:200px;margin:0px auto;">-->
+            <!--<input type="file" class="file" name="file" onchange="preview(this)" accept="image/*"></div>-->
+            <!--<div style="width:270px;margin:0px auto;margin-top: 20px">-->
+            <!--<input type="submit" class="login_ok" value="提交" onclick="UpladFile()"> <input type="button" class="login_no" value="取消"></div>-->
+        <!--</form>-->
+
+        <!--<div style="display: none"><progress id="progre" max="100" value=""></progress> <span id="span">0%</span></div>-->
+
+    </div>
+    <!--修改密码-->
+    <div class="xgmm" style="display: none">
+        <p style="padding-top: 30px;"><span>修改密码</span> <i class="iconfont icon_close">&#xe624;</i></p>
+        <p><input type="password" placeholder="输入旧密码" id="pwd_o"></p>
+        <p><input type="password" placeholder="输入新密码" id="pwd1"></p>
+        <p><input type="password" placeholder="确认新密码" id="pwd2"></p>
+        <p><button class="login_ok">确认</button> <button class="login_no">取消</button></p>
+    </div>
+    <!--修改信息-->
+    <div class="xgxx" style="display: none">
+        <p style="padding-top: 30px;"><span>修改信息</span> <i class="iconfont icon_close">&#xe624;</i></p>
+        <p><input type="text" placeholder="输入新名称"></p>
+        <p><button class="login_ok">确认</button> <button class="login_no">取消</button></p>
+    </div>
+</div>
+<div class="clear_fl" >
+    <div class="left">
+        <div class="clear_fl common_logo">
+            <div class="left left_logo" {notempty name="Think.session.logo"}style="background:url(__INDEX_UPLOAD__/{$Think.session.logo}) no-repeat ;"{/notempty}></div>
+
+            <!--<div class="left left_logo"></div>-->
+            <!--<div class="left right_logo" ><a href="{:url('login/loginOut')}">{$Think.session.name}</a></div>-->
+            <div class="left right_logo" ><span style="display: inline-block;padding:2px 4px;">{$Think.session.name}</span><i class="iconfont login_m">&#xe61d;</i></div>
+            <div style="" class="common_log">
+                <p class="edit_m">修改信息</p>
+                <p class="edit_p">修改密码</p>
+                <p><a href="{:url('login/loginOut')}">退出</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="common_header left" style="">
+        <ul class="clear_fl common_header_ul">
+            <li><a href="{:url('index/index')}"><span class="index_common_span"></span>首页</a></li>
+            <li><a href="{:url('edit/index')}"><span class="index_common_span"></span>基础档案</a></li>
+            <li><a href="{:url('use_car/index')}"><span class="index_common_span"></span>用车管理</a></li>
+            <li><a href="{:url('warn_car/index')}"><span class="index_common_span"></span>警示管理</a></li>
+            <li><a href="{:url('car_manage/index')}"><span class="index_common_span"></span>费用管理</a></li>
+            <li><a href="{:url('driver_info/kpi')}"><span class="index_common_span"></span>KPI考核</a></li>
+            <li><a href="{:url('driver_info/analysis')}"><span class="index_common_span"></span>驾驶分析</a></li>
+            <li><a href="{:url('driver_info/oil')}"><span class="index_common_span"></span>油耗统计</a></li>
+        </ul>
+    </div>
+</div>
