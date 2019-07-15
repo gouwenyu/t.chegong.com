@@ -268,13 +268,13 @@ return [
         // 数据库类型
         'type'        => 'mysql',
         // 服务器地址
-        'hostname'    => '39.107.14.42',
+        'hostname'    => '',
         // 数据库名
-        'database'    => 'chegongbao',
+        'database'    => '',
         // 数据库用户名
         'username'    => 'root',
         // 数据库密码
-        'password'    => 'CheGong@2O16',
+        'password'    => '',
         // 数据库编码默认采用utf8
         'charset'     => 'utf8',
         // 数据库表前缀
@@ -284,13 +284,13 @@ return [
         // 数据库类型
         'type'        => 'mysql',
         // 服务器地址
-        'hostname'    => '39.107.14.42',
+        'hostname'    => '',
         // 数据库名
-        'database'    => 'chegong_merchant',
+        'database'    => '',
         // 数据库用户名
         'username'    => 'root',
         // 数据库密码
-        'password'    => 'CheGong@2O16',
+        'password'    => '',
         // 数据库编码默认采用utf8
         'charset'     => 'utf8',
         // 数据库表前缀
@@ -300,13 +300,13 @@ return [
         // 数据库类型
         'type'        => 'mysql',
         // 服务器地址
-        'hostname'    => '39.107.14.42',
+        'hostname'    => '',
         // 数据库名
-        'database'    => 'chegongbao',
+        'database'    => '',
         // 数据库用户名
         'username'    => 'root',
         // 数据库密码
-        'password'    => 'CheGong@2O16',
+        'password'    => '',
         // 数据库编码默认采用utf8
         'charset'     => 'utf8',
         // 数据库表前缀
