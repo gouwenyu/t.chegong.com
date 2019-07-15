@@ -13,13 +13,13 @@ return [
     // 数据库类型
     'type'            => 'mysql',
     // 服务器地址
-    'hostname'        => '39.107.14.42',
+    'hostname'        => '',
     // 数据库名
-    'database'        => 'chegong_merchant',
+    'database'        => '',
     // 用户名
-    'username'        => 'longdeng',
+    'username'        => '',
     // 密码
-    'password'        => 'CheGong@2O16',
+    'password'        => '',
     // 端口
     'hostport'        => '3306',
     // 连接dsn
